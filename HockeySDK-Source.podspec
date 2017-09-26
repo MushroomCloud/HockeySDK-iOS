@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = 'HockeySDK-Source'
-  s.version           = '4.1.2'
+  s.version           = '5.0.0'
 
   s.summary           = 'Collect live crash reports, get feedback from your users, distribute your betas, and analyze your test coverage with HockeyApp.'
   s.description       = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.author            = { 'Microsoft' => 'support@hockeyapp.net' }
   s.source            = { :git => 'https://github.com/bitstadium/HockeySDK-iOS.git', :tag => s.version.to_s }
 
-  s.platform          = :ios, '6.0'
+  s.platform          = :ios, '8.0'
   s.requires_arc      = true
 
   s.default_subspec = 'DefaultLib'
@@ -35,19 +35,19 @@ Pod::Spec.new do |s|
 
   s.subspec 'CrashOnlyLib' do |ss|
     ss.dependency 'HockeySDK-Source/Core'
-    ss.pod_target_xcconfig  = {'GCC_PREPROCESSOR_DEFINITIONS' => %{$(inherited) BITHOCKEY_VERSION="@\\"#{s.version}\\"" BITHOCKEY_C_VERSION="\\"#{s.version}\\"" BITHOCKEY_BUILD="@\\"97\\"" BITHOCKEY_C_BUILD="\\"97\\"" HOCKEYSDK_FEATURE_CRASH_REPORTER=1 HOCKEYSDK_FEATURE_FEEDBACK=0 HOCKEYSDK_FEATURE_STORE_UPDATES=0 HOCKEYSDK_FEATURE_AUTHENTICATOR=0 HOCKEYSDK_FEATURE_UPDATES=0 HOCKEYSDK_FEATURE_METRICS=1} }
+    ss.pod_target_xcconfig  = {'GCC_PREPROCESSOR_DEFINITIONS' => %{$(inherited) BITHOCKEY_VERSION="@\\"#{s.version}\\"" BITHOCKEY_C_VERSION="\\"#{s.version}\\"" BITHOCKEY_BUILD="@\\"104\\"" BITHOCKEY_C_BUILD="\\"104\\"" HOCKEYSDK_FEATURE_CRASH_REPORTER=1 HOCKEYSDK_FEATURE_FEEDBACK=0 HOCKEYSDK_FEATURE_STORE_UPDATES=0 HOCKEYSDK_FEATURE_AUTHENTICATOR=0 HOCKEYSDK_FEATURE_UPDATES=0 HOCKEYSDK_FEATURE_METRICS=1} }
   end
 
   s.subspec 'DefaultLib' do |ss|
     ss.dependency 'HockeySDK-Source/Core'
     ss.frameworks           = 'AssetsLibrary', 'CoreGraphics', 'CoreText', 'CoreTelephony', 'MobileCoreServices', 'QuartzCore', 'QuickLook'
-    ss.pod_target_xcconfig  = {'GCC_PREPROCESSOR_DEFINITIONS' => %{$(inherited) BITHOCKEY_VERSION="@\\"#{s.version}\\"" BITHOCKEY_C_VERSION="\\"#{s.version}\\"" BITHOCKEY_BUILD="@\\"97\\"" BITHOCKEY_C_BUILD="\\"97\\"" HOCKEYSDK_FEATURE_CRASH_REPORTER=1 HOCKEYSDK_FEATURE_FEEDBACK=0 HOCKEYSDK_FEATURE_STORE_UPDATES=1 HOCKEYSDK_FEATURE_AUTHENTICATOR=1 HOCKEYSDK_FEATURE_UPDATES=1 HOCKEYSDK_FEATURE_METRICS=1} }
+    ss.pod_target_xcconfig  = {'GCC_PREPROCESSOR_DEFINITIONS' => %{$(inherited) BITHOCKEY_VERSION="@\\"#{s.version}\\"" BITHOCKEY_C_VERSION="\\"#{s.version}\\"" BITHOCKEY_BUILD="@\\"104\\"" BITHOCKEY_C_BUILD="\\"104\\"" HOCKEYSDK_FEATURE_CRASH_REPORTER=1 HOCKEYSDK_FEATURE_FEEDBACK=0 HOCKEYSDK_FEATURE_STORE_UPDATES=1 HOCKEYSDK_FEATURE_AUTHENTICATOR=1 HOCKEYSDK_FEATURE_UPDATES=1 HOCKEYSDK_FEATURE_METRICS=1} }
   end
 
   s.subspec 'AllFeaturesLib' do |ss|
     ss.dependency 'HockeySDK-Source/Core'
     ss.frameworks           = 'AssetsLibrary', 'CoreGraphics', 'CoreText', 'CoreTelephony', 'MobileCoreServices', 'Photos', 'QuartzCore', 'QuickLook'
-    ss.pod_target_xcconfig  = {'GCC_PREPROCESSOR_DEFINITIONS' => %{$(inherited) BITHOCKEY_VERSION="@\\"#{s.version}\\"" BITHOCKEY_C_VERSION="\\"#{s.version}\\"" BITHOCKEY_BUILD="@\\"97\\"" BITHOCKEY_C_BUILD="\\"97\\"" HOCKEYSDK_FEATURE_CRASH_REPORTER=1 HOCKEYSDK_FEATURE_FEEDBACK=1 HOCKEYSDK_FEATURE_STORE_UPDATES=1 HOCKEYSDK_FEATURE_AUTHENTICATOR=1 HOCKEYSDK_FEATURE_UPDATES=1 HOCKEYSDK_FEATURE_METRICS=1} }
+    ss.pod_target_xcconfig  = {'GCC_PREPROCESSOR_DEFINITIONS' => %{$(inherited) BITHOCKEY_VERSION="@\\"#{s.version}\\"" BITHOCKEY_C_VERSION="\\"#{s.version}\\"" BITHOCKEY_BUILD="@\\"104\\"" BITHOCKEY_C_BUILD="\\"104\\"" HOCKEYSDK_FEATURE_CRASH_REPORTER=1 HOCKEYSDK_FEATURE_FEEDBACK=1 HOCKEYSDK_FEATURE_STORE_UPDATES=1 HOCKEYSDK_FEATURE_AUTHENTICATOR=1 HOCKEYSDK_FEATURE_UPDATES=1 HOCKEYSDK_FEATURE_METRICS=1} }
   end
 
 end

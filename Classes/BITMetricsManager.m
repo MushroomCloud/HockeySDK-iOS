@@ -64,7 +64,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 }
 
 - (void)startManager {
-  self.sender = [[BITSender alloc] initWithPersistence:self.persistence serverURL:[NSURL URLWithString:self.serverURL]];
+  self.sender = [[BITSender alloc] initWithPersistence:self.persistence serverURL:(NSURL *)[NSURL URLWithString:self.serverURL]];
   [self.sender sendSavedDataAsync];
   [self startNewSessionWithId:bit_UUID()];
   [self registerObservers];
@@ -74,13 +74,12 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 
 - (void)setDisabled:(BOOL)disabled {
   if (_disabled == disabled) { return; }
-  
+    _disabled = disabled;
   if (disabled) {
     [self unregisterObservers];
   } else {
-    [self registerObservers];
+    [self startManager];
   }
-  _disabled = disabled;
 }
 
 #pragma mark - Sessions
@@ -94,7 +93,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
     self.appDidEnterBackgroundObserver = [nc addObserverForName:UIApplicationDidEnterBackgroundNotification
                                                      object:nil
                                                       queue:NSOperationQueue.mainQueue
-                                                 usingBlock:^(NSNotification *note) {
+                                                 usingBlock:^(NSNotification __unused *note) {
                                                    typeof(self) strongSelf = weakSelf;
                                                    [strongSelf updateDidEnterBackgroundTime];
                                                  }];
@@ -103,7 +102,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
     self.appWillEnterForegroundObserver = [nc addObserverForName:UIApplicationWillEnterForegroundNotification
                                                       object:nil
                                                        queue:NSOperationQueue.mainQueue
-                                                  usingBlock:^(NSNotification *note) {
+                                                  usingBlock:^(NSNotification __unused *note) {
                                                     typeof(self) strongSelf = weakSelf;
                                                     [strongSelf startNewSessionIfNeeded];
                                                   }];
@@ -118,10 +117,6 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
 
 - (void)updateDidEnterBackgroundTime {
   [self.userDefaults setDouble:[[NSDate date] timeIntervalSince1970] forKey:kBITApplicationDidEnterBackgroundTime];
-  if(bit_isPreiOS8Environment()) {
-    // calling synchronize in pre-iOS 8 takes longer to sync than in iOS 8+, calling synchronize explicitly.
-    [self.userDefaults synchronize];
-  }
 }
 
 - (void)startNewSessionIfNeeded {
@@ -130,10 +125,6 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
   if(appDidEnterBackgroundTime < 0) {
     appDidEnterBackgroundTime = 0;
     [self.userDefaults setDouble:0 forKey:kBITApplicationDidEnterBackgroundTime];
-    if(bit_isPreiOS8Environment()) {
-      // calling synchronize in pre-iOS 8 takes longer to sync than in iOS 8+, calling synchronize explicitly.
-      [self.userDefaults synchronize];
-    }
   }
   double timeSinceLastBackground = [[NSDate date] timeIntervalSince1970] - appDidEnterBackgroundTime;
   if (timeSinceLastBackground > self.appBackgroundTimeBeforeSessionExpires) {
@@ -157,10 +148,6 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
   if (![self.userDefaults boolForKey:kBITApplicationWasLaunched]) {
     session.isFirst = @"true";
     [self.userDefaults setBool:YES forKey:kBITApplicationWasLaunched];
-    if(bit_isPreiOS8Environment()) {
-      // calling synchronize in pre-iOS 8 takes longer to sync than in iOS 8+, calling synchronize explicitly.
-      [self.userDefaults synchronize];
-    }
   } else {
     session.isFirst = @"false";
   }
@@ -211,7 +198,7 @@ static NSString *const BITMetricsURLPathString = @"v2/track";
     typeof(self) strongSelf = weakSelf;
     BITEventData *eventData = [BITEventData new];
     [eventData setName:eventName];
-    [eventData setProperties:properties];
+    [eventData setProperties:(NSDictionary *)properties];
     [eventData setMeasurements:measurements];
     [strongSelf trackDataItem:eventData];
   });

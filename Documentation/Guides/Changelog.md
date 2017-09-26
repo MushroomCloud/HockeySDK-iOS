@@ -1,4 +1,59 @@
-# 4.1.2
+## 5.0.0
+
+- [IMPROVEMENT] Use `UIAlertController` in Feedback instead of `UIAlertView`. [#460](https://github.com/bitstadium/HockeySDK-iOS/pull/460)
+- [BUGFIX] Fix bugs in the Feedback UI on iOS 11. [#459](https://github.com/bitstadium/HockeySDK-iOS/pull/459)
+
+## 5.0.0-beta.2
+
+- [FEATURE] Added support for Metrics in app extensions. [#449](https://github.com/bitstadium/HockeySDK-iOS/pull/449)
+- [FEATURE] User Metrics can now be enabled after it was disabled [#451)(https://github.com/bitstadium/HockeySDK-iOS/pull/451)
+- [IMPROVEMENT] Don't use `UIAlertView` but `UIAlertController`.[#446](https://github.com/bitstadium/HockeySDK-iOS/pull/446)
+- [IMPROVEMENT] `BITAttributedLabel` is now based on `TTTAttributedLabel` 2.0. [#450](https://github.com/bitstadium/HockeySDK-iOS/pull/450)
+- [BUGFIX] Fix a bug in `BITAuthenticator`. [#447](https://github.com/bitstadium/HockeySDK-iOS/pull/447)
+- [BUGFIX] Fix for a bug in `BITImageAnnotation`. [#453](https://github.com/bitstadium/HockeySDK-iOS/pull/453)
+
+## 5.0.0-beta.1
+
+This version drops support for iOS 7. There is not other breaking change at this point.
+
+- [IMPROVEMENT] The code has been cleaned up as we have decided to drop support for iOS 7.
+- [IMPROVEMENT] `properties` of type `NSString` now use the `copy` attribute.
+- [BUGFIX] The logic that makes sure that the for HockeySDK-iOS is excluded from backups was changed to make sure it doesn't block app launch [#443](https://github.com/bitstadium/HockeySDK-iOS/pull/443).  
+
+## 4.1.6
+
+- [BUGFIX] Fixed a string in the Italian translation [#430](https://github.com/bitstadium/HockeySDK-iOS/pull/430).
+- [BUGFIX] Fix bug that prevented images that were attached to Feedback from loading [#428](https://github.com/bitstadium/HockeySDK-iOS/pull/428) – thx to [Zoltan](https://github.com/Xperion-meszaroz) for the contribution.
+- [IMPROVEMENT] Improved the accessibility of the Feedback UI, it now uses the proper accessibility traits.
+- [IMPROVEMENT] The crash-only flavor of the SDK now doesn't contain the Metrics feature.
+- [IMPROVEMENT] The SDK can be compiled using Xcode 9 [#423](https://github.com/bitstadium/HockeySDK-iOS/pull/423) – thx to [Stephan](https://github.com/diederich) and [Piet](https://github.com/pietbrauer) for the contribution!
+- [IMPROVEMENT] Metrics info will be send to the backend every time the application goes from foreground to background [#429](https://github.com/bitstadium/HockeySDK-iOS/pull/429) - thx to [Ivan](https://github.com/MatkovIvan) for the contribution.
+- [IMPROVEMENT] Our README.md now use gender-neutral language [#427](https://github.com/bitstadium/HockeySDK-iOS/pull/427).
+
+## 4.1.5
+
+This release officially drops the support for iOS 6.
+
+- [BUGFIX] Remove the dependency for AssetLibrary for the default subspec in our podspec [#403](https://github.com/bitstadium/HockeySDK-iOS/pull/403). Thanks to [@tschob](https://github.com/tschob) for the pointer.
+- [BUGFIX] A couple of visual bugs have been fixed [#404](https://github.com/bitstadium/HockeySDK-iOS/pull/404) thanks to [@dweston](https://github.com/dtweston).
+- [IMPROVEMENT] We have improved accessibility of our feedback UI [#409](https://github.com/bitstadium/HockeySDK-iOS/pull/409) with help by [@erychagov](https://github.com/erychagov).
+
+## 4.1.4
+
+- [IMPROVEMENT] Test targets won't be build in the run phase of the framework, which makes it possible to build individual configurations when using Carthage. Thanks a lot @wiedem for your contribution! [394](https://github.com/bitstadium/HockeySDK-iOS/pull/394)
+- [IMPROVEMENT] We've reverted to a build based on PLCrashReporter 1.2.1 as 1.3 comes with unintended namespace collisions in some edge cases that result in worse crash reporting than you were used to.
+- [BUGFIX] Fixes a crash on iOS 9 when attaching data to feedback [#395](https://github.com/bitstadium/HockeySDK-iOS/issues/395)
+- [BUGFIX] Disabling the `BITFeedbackManager` now disables the various `BITFeedbackObservationModes`. [#390](https://github.com/bitstadium/HockeySDK-iOS/pull/390)
+
+## 4.1.3
+
+- [NEW] Added `forceNewFeedbackThreadForFeedbackManager:`-callback to `BITFeedbackManagerDelegate` to force a new feedback thread for each new feedback.
+- [NEW] Norwegian (Bokmal) localization
+- [NEW] Persian (Farsi) localization
+- [BUGFIX] Fix analyzer warning in `BITChannelManagerTests`
+- [BUGFIX] Add check for nil in `BITChannel`.
+
+## 4.1.2
 
 - [NEW] New `shouldDisplayUpdateAlertForUpdateManager`-API [#339](https://github.com/bitstadium/HockeySDK-iOS/pull/339) to make the moment of appearance for custom update UI even more customizable. 
 - [IMPROVEMENT] Fix static analyzer warnings. [#351](https://github.com/bitstadium/HockeySDK-iOS/pull/351)
@@ -38,7 +93,7 @@ Additionally, we now also provide a new flavor in our binary distribution. To us
 This SDK release explicitly includes the Application Support directory into backups. If you want to opt-out of this fix and keep the Application Directory's backup flag untouched, add the following line above the SDK setup code:
 
   - Objective-C:
-        ```objectivec
+        ```objc
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"BITExcludeApplicationSupportFromBackup"];
         ```
 
@@ -83,7 +138,7 @@ This SDK release explicitly includes the Application Support directory into back
 This SDK release explicitly includes the Application Support directory into backups. If you want to opt-out of this fix and keep the Application Directory's backup flag untouched, add the following line above the SDK setup code:
 
   - Objective-C:
-        ```objectivec
+        ```objc
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kBITExcludeApplicationSupportFromBackup"];
         ```
 
@@ -122,7 +177,7 @@ This SDK release explicitly includes the Application Support directory into back
 
 ## Version 3.8.6
 
-- [UPDATE] Some minor refactorings
+- [UPDATE] Some minor refactoring
 - [BUGFIX] Fix crash in `BITCrashReportTextFormatter` in cases where processPath is unexpectedly nil
 - [BUGFIX] Fix bug where feedback image could only be added once
 - [BUGFIX] Fix URL encoding bug in BITUpdateManager
@@ -245,7 +300,7 @@ This SDK release explicitly includes the Application Support directory into back
 
 - [NEW] `BITCrashManager`: Added launch time to crash reports
 - [NEW] `BITFeedbackManager`: Added support for setting tintColor for feedback list buttons
-- [NEW] `BITFeedbackManager`: Added `feedbackComposerPreparedItems` to prefill feedback compose UI message with given items
+- [NEW] `BITFeedbackManager`: Added `feedbackComposerPreparedItems` to pre-fill feedback compose UI message with given items
 - [NEW] `BITUpdateManagerDelegate`: Added `willStartDownloadAndUpdate` to be notified before beta update starts
 - [UPDATE] Improved CocoaPods support to allow building as a native iOS 8 framework
 - [UPDATE] Keychain is now accessed with `kSecAttrAccessibleAlwaysThisDeviceOnly` to support apps that are running in the background and the device is still locked
